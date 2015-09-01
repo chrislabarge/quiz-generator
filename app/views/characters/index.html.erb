@@ -1,6 +1,7 @@
 <h1>Characters</h1>
 
 <%= link_to 'New Character', new_character_path %>
+<%= link_to 'Questions', questions_path %>
 
 <%= @characters.each do |character|%>
 	<p><%= character.name %></p>
