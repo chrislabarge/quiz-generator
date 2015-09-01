@@ -1,0 +1,8 @@
+<p>Hello</p>
+
+<%= link_to 'New Question', new_question_path %>
+
+<%@questions.each do |question| %>
+	<p><%=question.text%></p>
+	<%= link_to 'Delete', '#'%>
+<% end %>
