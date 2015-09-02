@@ -19,12 +19,31 @@ feature "Questions" do
     
     fill_in "Your New Question",  with: question.text 
     
-    #save_and_open_page  
-    
     fill_in "Answer", with: answer.text 
     
     click_button "Create Question"
     
     expect(page).to have_content("Created Question")
+    
+    expect(page).to have_content(question.text)
+  end
+
+  scenario "visits edit page for questions" do
+    answer = create(:answer)
+    question = answer.question
+    new_answer = build(:answer, character: answer.character)
+    new_question = new_answer.question
+
+    visit edit_question_path(question)
+    
+    expect(page).to have_content("Edit Question")
+    
+    fill_in "Your Question",  with: new_question.text   
+    
+    fill_in "Answer", with: new_answer.text 
+    
+    click_button "Update"
+    
+    expect(page).to have_content("Updated Question")
   end
 end  

@@ -10,5 +10,6 @@ feature "Answers" do
 		visit question_answers_path(question, question.answers)
 		
 		expect(page).to have_content(question.text)
+		expect(page).to have_content(answer_1.text)
 	end
 end  

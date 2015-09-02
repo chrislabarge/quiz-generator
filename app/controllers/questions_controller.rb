@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
-  #before_filter :load_personal_assistant
+  before_filter :load_question, except: [:index, :new, :create]
+  before_filter :load_characters, only: [:new, :edit]
 
   def index
   	@questions = Question.all
@@ -24,13 +25,34 @@ class QuestionsController < ApplicationController
   def show
   end
 
-  def edit
+  def edit   
+  end
+
+  def update
+    if @question.update_attributes(question_params)
+      redirect_to questions_url(@question), flash: {success: "Updated Question"}
+    else
+      flash.now[:error] = @question.errors.full_messages
+      render :edit
+    end
   end
 
   def delete
   end
 
   private
+  def load_question
+    @question = Question.find(question_id)
+  end
+
+  def load_characters
+    @characters = Character.all
+  end
+
+  def question_id
+    params[:id]
+  end
+
   def question_params
     params.require(:question).permit(:text,
                                       answers_attributes: [:id, :text, :character_id])

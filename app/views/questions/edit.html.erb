@@ -1,2 +1,18 @@
-<h1>Questions#edit</h1>
+<h1>Edit Question</h1>
 <p>Find me in app/views/questions/edit.html.erb</p>
+
+<%= form_for @question do |f| %>
+	<%= f.label :text, "Your Question" %>
+	<%= f.text_area :text%>
+		<% @characters.each do  %>
+			<p>
+				<%= f.fields_for :answers, @answer do |builder| %>	
+			    <%= builder.label :text, "Answer" %>
+			    <%= builder.text_area :text %>
+			  	<%= builder.	collection_select(:character_id, Character.all, :id, :name, prompt: true) %> 
+				<% end %>
+			</p>
+		<% end %>		
+
+	<%= f.submit 'Update' %>
+<% end %>

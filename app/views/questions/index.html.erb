@@ -5,5 +5,7 @@
 
 <%@questions.each do |question| %>
 	<p><%=question.text%></p>
+	<%= link_to 'Edit Question', edit_question_path(question)%>
+	<%= link_to 'Show Answers', question_answers_path(question)%>
 	<%= link_to 'Delete', '#'%>
 <% end %>
