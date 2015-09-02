@@ -46,4 +46,17 @@ feature "Questions" do
     
     expect(page).to have_content("Updated Question")
   end
+
+  scenario 'Delete Question' do
+    question = create(:question)
+
+    visit questions_path
+
+    #find(".hospitalization-#{hospitalization.id} .red.button").click
+    #find(".approve").trigger('click')
+
+    click_link "Delete"
+
+    expect(page).to have_content('Deleted Question')
+  end
 end  

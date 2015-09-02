@@ -37,9 +37,16 @@ class QuestionsController < ApplicationController
     end
   end
 
-  def delete
-  end
+  def destroy
+    if @question.destroy
+      flash = {flash: {success: 'Deleted Question'}}
+    else
+      flash = {flash: {error: @question.errors.full_messages}}
+    end
 
+    redirect_to questions_url(@question), flash
+  end
+  
   private
   def load_question
     @question = Question.find(question_id)
