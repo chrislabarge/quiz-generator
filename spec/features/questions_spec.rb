@@ -12,6 +12,7 @@ feature "Questions" do
   scenario "visits new page for questions" do
     question = build(:question)
     answer = build(:answer)
+    character = answer.character
 
     visit new_question_path
     
@@ -19,7 +20,7 @@ feature "Questions" do
     
     fill_in "Your New Question",  with: question.text 
     
-    fill_in "Answer", with: answer.text 
+    fill_in "Answer for #{character.name}", with: answer.text 
     
     click_button "Create Question"
     

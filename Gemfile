@@ -33,7 +33,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-	gem 'shoulda-matchers'
+	gem 'faker'
+  gem 'shoulda-matchers'
 	gem 'factory_girl_rails'
 	gem 'capybara'
 	gem 'rspec-rails', '~> 3.0'

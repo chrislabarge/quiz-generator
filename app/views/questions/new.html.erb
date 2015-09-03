@@ -4,10 +4,10 @@
 <%= form_for @question do |f| %>
 	<%= f.label :text, "Your New Question" %>
 	<%= f.text_area :text%>
-		<% @characters.each do  %>
+		<% @characters.each do |character| %>
 			<p>
 				<%= f.fields_for :answers, @answer do |builder| %>	
-			    <%= builder.label :text, "Answer" %>
+			    <%= builder.label :text, "Answer for #{character.name} " %>
 			    <%= builder.text_area :text %>
 			  	<%= builder.	collection_select(:character_id, Character.all, :id, :name, prompt: true) %> 
 				<% end %>
