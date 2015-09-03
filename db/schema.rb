@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150820015028) do
+ActiveRecord::Schema.define(version: 20150903004132) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 20150820015028) do
 
   create_table "questions", force: :cascade do |t|
     t.text     "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "quiz_id"
+  end
+
+  add_index "questions", ["quiz_id"], name: "index_questions_on_quiz_id"
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
