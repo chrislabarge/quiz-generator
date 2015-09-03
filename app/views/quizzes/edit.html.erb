@@ -1,0 +1,9 @@
+<h1>Edit Quiz</h1>
+<p>Find me in app/views/questions/new.html.erb</p>
+
+<%= form_for @quiz do |f| %>
+	<%= f.label :name, "Quiz Name" %>
+	<%= f.text_field :name%>
+
+	<%= f.submit%>
+<% end %>
