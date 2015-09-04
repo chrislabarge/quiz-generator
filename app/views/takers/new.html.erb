@@ -1,0 +1,7 @@
+<h1>Takers#new</h1>
+<p>Fill out the most appropriate answer for each question</p>
+
+<% @taker.questions.each do |question| %>
+	<p><%= question.text %></p>
+<% end %>
+

@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
-  resources :quizzes
+  get 'takers/new'
+
+  resources :quizzes do
+    resources :takers
+  end
   resources :questions do
     resources :answers
   end

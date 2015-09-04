@@ -1,6 +1,5 @@
 FactoryGirl.define do
   factory :question do
-    text "hello"
-  	quiz
+    text Faker::Lorem.sentence
   end
 end  
