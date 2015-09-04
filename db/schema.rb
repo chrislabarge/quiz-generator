@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150903004132) do
+ActiveRecord::Schema.define(version: 20150904021507) do
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -44,5 +44,13 @@ ActiveRecord::Schema.define(version: 20150903004132) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "takers", force: :cascade do |t|
+    t.integer  "quiz_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "takers", ["quiz_id"], name: "index_takers_on_quiz_id"
 
 end
