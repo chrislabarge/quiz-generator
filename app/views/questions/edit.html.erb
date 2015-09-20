@@ -1,7 +1,7 @@
 <h1>Edit Question</h1>
 <p>Find me in app/views/questions/edit.html.erb</p>
 
-<%= form_for @question do |f| %>
+<%= form_for [@quiz, @question] do |f| %>
 	<%= f.label :text, "Your Question" %>
 	<%= f.text_area :text%>
 		<% @characters.each do  %>

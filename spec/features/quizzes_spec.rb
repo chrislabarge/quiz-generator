@@ -24,10 +24,20 @@ feature "Quizes" do
     expect(page).to have_content("Created Quiz")
   end
 
-  scenario "visits edit page for quizs" do
-    
+  scenario "visits show page of quiz" do
     quiz = create(:quiz)
+
+    visit quiz_path(quiz)
     
+    expect(page).to have_content("#{quiz.name}")
+    
+    click_link "Create New Question"
+    
+    expect(page).to have_content("New Question")
+  end
+
+  scenario "visits edit page for quizs" do
+    quiz = create(:quiz)
     new_quiz = build(:quiz)
 
     visit edit_quiz_path(quiz)
@@ -39,5 +49,9 @@ feature "Quizes" do
     click_button "Update"
     
     expect(page).to have_content("Updated Quiz")
+  end
+
+  scenario "visits show page for quiz" do
+    
   end
 end  

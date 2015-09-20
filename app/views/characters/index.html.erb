@@ -1,7 +1,7 @@
 <h1>Characters</h1>
 
-<%= link_to 'New Character', new_character_path %>
-<%= link_to 'Questions', questions_path %>
+<%= link_to 'New Character', new_quiz_character_path(@quiz) %>
+<%= link_to 'Questions', quiz_questions_path(@quiz) %>
 
 <%= @characters.each do |character|%>
 	<p><%= character.name %></p>

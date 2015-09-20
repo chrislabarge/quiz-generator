@@ -5,6 +5,8 @@ class TakersController < ApplicationController
   	 @taker = @quiz.takers.build
   end
   
+
+  
   private
   def load_quiz
 		@quiz = Quiz.find(quiz_id)

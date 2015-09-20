@@ -3,8 +3,9 @@ require "rails_helper"
 feature "Questions" do  
   scenario "visits index page for index" do
     question = create(:question)
+    quiz = question.quiz
 
-    visit questions_path
+    visit quiz_questions_path(quiz)
 
     expect(page).to have_content(question.text)
   end
@@ -12,9 +13,10 @@ feature "Questions" do
   scenario "visits new page for questions" do
     question = build(:question)
     answer = build(:answer)
-    character = answer.character
+    character = create(:character)
+    quiz = character.quiz
 
-    visit new_question_path
+    visit new_quiz_question_path(quiz)
     
     expect(page).to have_content("New Question")
     
@@ -30,12 +32,14 @@ feature "Questions" do
   end
 
   scenario "visits edit page for questions" do
-    answer = create(:answer)
-    question = answer.question
-    new_answer = build(:answer, character: answer.character)
+    character = create(:character)
+    quiz = character.quiz
+    question = create(:question, quiz: quiz)
+    answer = create(:answer, character: character, question: question)
+    new_answer = build(:answer)
     new_question = new_answer.question
 
-    visit edit_question_path(question)
+    visit edit_quiz_question_path(quiz, question)
     
     expect(page).to have_content("Edit Question")
     
@@ -50,8 +54,9 @@ feature "Questions" do
 
   scenario 'Delete Question' do
     question = create(:question)
+    quiz = question.quiz
 
-    visit questions_path
+    visit quiz_questions_path(quiz)
 
     #find(".hospitalization-#{hospitalization.id} .red.button").click
     #find(".approve").trigger('click')

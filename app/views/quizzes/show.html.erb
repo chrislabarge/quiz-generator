@@ -1,0 +1,23 @@
+<h1><%= @quiz.name %></h1>
+
+<h3>Characters</h3>
+<% if @characters.any?  %>
+	<% @characters.each do |character|%>
+		<p><%= character.name%></p>
+	<% end %>
+<% else %>
+	<p>There are no characters yet. <%= link_to 'Create Some', new_quiz_character_path(@quiz) %></p>
+<% end %>
+
+<h3>Questions</h3>
+<%= link_to 'Create New Question', new_quiz_question_path(@quiz) %>
+
+<% if @questions.any?  %>
+	<% @questions.each do |question|%>
+		<p><%= question.text %></p>
+		<%= link_to 'Edit Question', edit_quiz_question_path(@quiz, question) %>
+		<%= link_to 'Show Answers', quiz_question_answers_path(@quiz, question, question.answers) %>
+	<% end %>
+<% else %>
+	<p>There are no questions yet. <%= link_to 'Create Some', new_quiz_question_path(@quiz) %></p>
+<% end %>

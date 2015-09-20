@@ -1,22 +1,25 @@
 class QuestionsController < ApplicationController
   before_filter :load_question, except: [:index, :new, :create]
   before_filter :load_characters, only: [:new, :edit]
+  before_filter :load_quiz
 
   def index
-  	@questions = Question.all
+  	@questions = @quiz.questions
   end
 
   def new
+    
     @question = Question.new 
-    @characters = Character.all
+    
     @answer = @question.answers.build
   end
 
   def create
-    @question = Question.new(question_params)
+    @question = @quiz.questions.build(question_params)
+    @question.quiz_id = quiz_id
     
     if @question.save
-      redirect_to questions_path, flash: {success: 'Created Question'}
+      redirect_to quiz_questions_path(@quiz), flash: {success: 'Created Question'}
     else
       flash.now[:error] = @question.errors.full_messages
     end
@@ -30,7 +33,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update_attributes(question_params)
-      redirect_to questions_url(@question), flash: {success: "Updated Question"}
+      redirect_to quiz_questions_url(@quiz), flash: {success: "Updated Question"}
     else
       flash.now[:error] = @question.errors.full_messages
       render :edit
@@ -44,16 +47,17 @@ class QuestionsController < ApplicationController
       flash = {flash: {error: @question.errors.full_messages}}
     end
 
-    redirect_to questions_url(@question), flash
+    redirect_to quiz_questions_url(@quiz, @question), flash
   end
   
   private
-  def load_question
-    @question = Question.find(question_id)
+  def load_characters
+    load_quiz
+    @characters = @quiz.characters
   end
 
-  def load_characters
-    @characters = Character.all
+  def load_question
+    @question = Question.find(question_id)
   end
 
   def question_id
@@ -63,5 +67,13 @@ class QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:text,
                                       answers_attributes: [:id, :text, :character_id])
+  end
+
+  def quiz_id
+    params[:quiz_id]
+  end
+
+  def load_quiz
+    @quiz = Quiz.find(quiz_id)
   end
 end

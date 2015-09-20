@@ -3,12 +3,16 @@ Rails.application.routes.draw do
   get 'takers/new'
 
   resources :quizzes do
-    resources :takers
+    resources :takers #this probably shouldnt be nested, so that the taker can take any quiz...mabye. i dunno
+    resources :characters
+    resources :questions do 
+      resources :answers
+    end
   end
-  resources :questions do
-    resources :answers
-  end
-  resources :characters
+  # resources :questions do
+  #   resources :answers
+  # end
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

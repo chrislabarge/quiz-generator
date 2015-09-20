@@ -1,5 +1,7 @@
 class QuizzesController < ApplicationController
 	before_filter :load_quiz, except: [:index, :new, :create]
+	before_filter :load_characters, only: [:show]
+	before_filter :load_questions, only: [:show]
 
 	def index
 		@quizzes = Quiz.all
@@ -35,6 +37,14 @@ class QuizzesController < ApplicationController
 	end
 
 	private
+	def load_questions
+		@questions = @quiz.questions
+	end
+
+	def load_characters
+		@characters = @quiz.characters
+	end
+
 	def load_quiz
     @quiz = Quiz.find(quiz_id)
   end
