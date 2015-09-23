@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :quizzes do
     resources :takers #this probably shouldnt be nested, so that the taker can take any quiz...mabye. i dunno
     resources :characters
-    resources :questions do 
+    
+    
+    resources :questions do   
       resources :answers
     end
   end

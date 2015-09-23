@@ -1,6 +1,8 @@
 <h1><%= @quiz.name %></h1>
 
 <h3>Characters</h3>
+<%= link_to 'Create New Character', new_quiz_character_path(@quiz) %>
+
 <% if @characters.any?  %>
 	<% @characters.each do |character|%>
 		<p><%= character.name%></p>
@@ -21,3 +23,5 @@
 <% else %>
 	<p>There are no questions yet. <%= link_to 'Create Some', new_quiz_question_path(@quiz) %></p>
 <% end %>
+
+<%= link_to 'Create New Tie-Breaker Question', new_quiz_question_path(@quiz, link: 'tie_breaker' ) %>

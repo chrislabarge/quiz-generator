@@ -1,6 +1,8 @@
 <h1>New Question</h1>
 <p>Find me in app/views/questions/new.html.erb</p>
 
+<h4><%= @yolo %></h4>
+
 <%= form_for [@quiz, @question] do |f| %>
 	<%= f.label :text, "Your New Question" %>
 	<%= f.text_area :text%>
@@ -9,7 +11,8 @@
 				<%= f.fields_for :answers, @answer do |builder| %>	
 			    <%= builder.label :text, "Answer for #{character.name} " %>
 			    <%= builder.text_area :text %>
-			  	<%= builder.	collection_select(:character_id, Character.all, :id, :name, prompt: true) %> 
+			  	<%= builder.hidden_field :character_id, value: character.id %>
+			  	
 				<% end %>
 			</p>
 		<% end %>		

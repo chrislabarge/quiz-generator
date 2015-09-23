@@ -4,6 +4,7 @@
 
 <% @quizzes.each do |quiz| %>
 	<p><%=quiz.name%></p>
+	<%= link_to 'Show quiz', quiz_path(quiz)%>
 	<%= link_to 'Edit quiz', edit_quiz_path(quiz)%>
 	  
 <% end %>

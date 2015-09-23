@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_filter :load_question, except: [:index, :new, :create]
+  before_filter :load_question, except: [:index, :new, :create, :tie_breaker]
   before_filter :load_characters, only: [:new, :edit]
   before_filter :load_quiz
 
@@ -8,7 +8,18 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    @yolo = nil
+
+    if params[:link] == 'tie_breaker'  
+      @yolo = "halla"
+    end
     
+    @question = Question.new 
+    
+    @answer = @question.answers.build
+  end
+
+  def tie_breaker
     @question = Question.new 
     
     @answer = @question.answers.build
