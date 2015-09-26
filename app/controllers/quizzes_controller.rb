@@ -34,6 +34,7 @@ class QuizzesController < ApplicationController
   end
 
 	def show
+		@tie_breaker = @quiz.questions.find_by(tie_breaker: true)
 	end
 
 	private

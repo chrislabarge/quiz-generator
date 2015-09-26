@@ -1,16 +1,18 @@
-<h1>Edit Question</h1>
+<% header_title = 'Edit Tie-Breaker Question' if @question.tie_breaker %>	
+<% header_title = 'Edit Question' if !@question.tie_breaker %>
+<% question_label = 'Your Tie-Breaker Question' if @question.tie_breaker %>	
+<% question_label = 'Your Question' if !@question.tie_breaker %>	
+
+
+<h1><%= header_title %></h1>
 <p>Find me in app/views/questions/edit.html.erb</p>
 
 <%= form_for [@quiz, @question] do |f| %>
-	<%= f.label :text, "Your Question" %>
+	<%= f.label :text, question_label %>
 	<%= f.text_area :text%>
-		<% @characters.each do  %>
+		<% @characters.each do |character| %>
 			<p>
-				<%= f.fields_for :answers, @answer do |builder| %>	
-			    <%= builder.label :text, "Answer" %>
-			    <%= builder.text_area :text %>
-			  	<%= builder.	collection_select(:character_id, Character.all, :id, :name, prompt: true) %> 
-				<% end %>
+				<%= render 'form_fields', f: f, character: character %>
 			</p>
 		<% end %>		
 

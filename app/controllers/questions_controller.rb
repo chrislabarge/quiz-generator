@@ -8,10 +8,10 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @yolo = nil
+    @tie_breaker = nil
 
     if params[:link] == 'tie_breaker'  
-      @yolo = "halla"
+      @tie_breaker = true
     end
     
     @question = Question.new 
@@ -29,7 +29,9 @@ class QuestionsController < ApplicationController
     @question = @quiz.questions.build(question_params)
     @question.quiz_id = quiz_id
     
-    if @question.save
+    if @question.save && @question.tie_breaker
+      redirect_to quiz_questions_path(@quiz), flash: {success: 'Created Tie-Breaker Question'}
+    elsif @question.save && !@question.tie_breaker
       redirect_to quiz_questions_path(@quiz), flash: {success: 'Created Question'}
     else
       flash.now[:error] = @question.errors.full_messages
@@ -40,11 +42,17 @@ class QuestionsController < ApplicationController
   end
 
   def edit   
+   
   end
 
   def update
+    successful_update = 'Updated Tie-Breaker Question and Answers' if @question.tie_breaker
+    successful_update = 'Updated Question and Answers' if !@question.tie_breaker
+
+
     if @question.update_attributes(question_params)
-      redirect_to quiz_questions_url(@quiz), flash: {success: "Updated Question"}
+      
+      redirect_to quiz_questions_url(@quiz), flash: {success: successful_update}
     else
       flash.now[:error] = @question.errors.full_messages
       render :edit
@@ -76,7 +84,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:text,
+    params.require(:question).permit(:text, :tie_breaker,
                                       answers_attributes: [:id, :text, :character_id])
   end
 

@@ -1,21 +1,20 @@
-<h1>New Question</h1>
-<p>Find me in app/views/questions/new.html.erb</p>
+<% question_label = 'Your Tie-Breaker Question' if @tie_breaker %>	
+<% question_label = 'Your New Question' if !@tie_breaker %>	
+<% header_title = 'New Tie-Breaker Question' if @tie_breaker %>	
+<% header_title = 'New Question' if !@tie_breaker %>	
 
-<h4><%= @yolo %></h4>
 
-<%= form_for [@quiz, @question] do |f| %>
-	<%= f.label :text, "Your New Question" %>
+<h1><%= header_title %></h1>
+
+<%= form_for [@quiz, @question] do |f| %>	
+	<%= f.label :text, question_label %>
+	
 	<%= f.text_area :text%>
 		<% @characters.each do |character| %>
+		<%= (f.hidden_field :tie_breaker, value: true) if @tie_breaker %>	
 			<p>
-				<%= f.fields_for :answers, @answer do |builder| %>	
-			    <%= builder.label :text, "Answer for #{character.name} " %>
-			    <%= builder.text_area :text %>
-			  	<%= builder.hidden_field :character_id, value: character.id %>
-			  	
-				<% end %>
+				<%= render 'form_fields', f: f, character: character %>	  	
 			</p>
 		<% end %>		
-
 	<%= f.submit%>
 <% end %>

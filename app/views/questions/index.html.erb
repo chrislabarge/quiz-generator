@@ -1,12 +1,16 @@
 <h1><%= @quiz.name %></h1>
-<p>Hello</p>
 
 <%= link_to "Characters", quiz_characters_path(@quiz) %>
 <%= link_to 'New Question', new_quiz_question_path(@quiz) %>
 
-<%@questions.each do |question| %>
-	<p><%=question.text%></p>
-	<%= link_to 'Edit Question', edit_quiz_question_path(@quiz, question)%>
-	<%= link_to 'Show Answers', quiz_question_answers_path(@quiz, question)%>
-	<%=link_to "Delete", quiz_question_path(@quiz, question.id), :method => :delete, :class => "delete"%>  
-<% end %>
+<% if @questions.any? %>
+	<% @questions.each do |question| %>
+		<h3><%= 'Tie Breaker' if question.tie_breaker %></h3>
+		<p><%=question.text%></p>
+		<%= link_to 'Edit Question', edit_quiz_question_path(@quiz, question)%>
+		<%= link_to 'Show Answers', quiz_question_answers_path(@quiz, question)%>
+		<%=link_to "Delete", quiz_question_path(@quiz, question.id), :method => :delete, :class => "delete"%>  
+	<% end %>
+<% else %>
+	<p>There are no questions yet.</p>
+<% end %>	

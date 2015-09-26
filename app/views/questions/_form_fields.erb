@@ -1,0 +1,5 @@
+<%= f.fields_for :answers, @answer do |builder| %>	
+	<%= builder.label :text, "Answer for #{character.name} " %>
+	<%= builder.text_area :text %>
+	<%= builder.hidden_field :character_id, value: character.id %>
+<% end %>	

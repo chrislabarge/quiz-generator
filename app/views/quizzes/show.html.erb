@@ -16,12 +16,14 @@
 
 <% if @questions.any?  %>
 	<% @questions.each do |question|%>
+		<h3><%= 'Tie Breaker' if question.tie_breaker %></h3>
 		<p><%= question.text %></p>
-		<%= link_to 'Edit Question', edit_quiz_question_path(@quiz, question) %>
+		<%= link_to 'Edit Question', edit_quiz_question_path(@quiz, question, link: 'tie_breaker') %>
 		<%= link_to 'Show Answers', quiz_question_answers_path(@quiz, question, question.answers) %>
 	<% end %>
 <% else %>
 	<p>There are no questions yet. <%= link_to 'Create Some', new_quiz_question_path(@quiz) %></p>
 <% end %>
-
-<%= link_to 'Create New Tie-Breaker Question', new_quiz_question_path(@quiz, link: 'tie_breaker' ) %>
+<% unless @tie_breaker%>
+	<%= link_to 'Create New Tie-Breaker Question', new_quiz_question_path(@quiz, link: 'tie_breaker' ) %>
+<% end %>	
