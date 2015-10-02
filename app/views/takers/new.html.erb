@@ -1,9 +1,13 @@
+<% section_index = 0 %>
 <h1>Begin</h1>
 <p>Fill out the most appropriate answer for each question</p>
 
 <%= form_tag(quiz_takers_path(@quiz, method: 'post')) do  %>
 <!-- <form action=<%= quiz_takers_path(@quiz) %> method="post"> -->
 	<% @questions.each do |question| %>
+		<% section_index += 1 %>
+
+		<div class='taker_question', id=<%="question_#{section_index}"%> >
 		<p><%= question.text %></p>
 	
 		<% question.answers.each_with_index do |answer, index| %>
@@ -11,6 +15,7 @@
 			<%= radio_button_tag("answer_#{index + 1}".to_sym, answer.id) %>	<%= answer.text %>
 		<!--	<input type="radio" name=<%= "answer_#{index + 1}" %> value=<%= answer.id %>><%= answer.text %> -->
 		<% end %>
+		</div>
 	<% end %>
 	<%= submit_tag 'Submit' %>
 <% end %>

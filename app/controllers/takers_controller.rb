@@ -60,7 +60,7 @@ class TakersController < ApplicationController
 
   def load_questions
     load_quiz
-    @questions = @quiz.questions 
+    @questions = @quiz.questions.select { |question| question.tie_breaker.nil?} #have to get ones where they arnt new
   end
 
   def load_quiz

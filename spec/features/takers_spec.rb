@@ -10,14 +10,13 @@ feature "Takers" do
     visit new_quiz_taker_path(quiz)
     
     expect(page).to have_content("Fill out the most appropriate answer for each question")
-    
-    
+        
     quiz.questions.each do |question|
       expect(page).to have_content(question.text) 
+      choose("answer_1_#{question.answers.first.id}")
     end
-    # fill_in "Name of the Quiz",  with: quiz.name 
     
-    # click_button "Create Quiz"
+    click_button 'Submit'
     
     # expect(page).to have_content("Created Quiz")
   end
